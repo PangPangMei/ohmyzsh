@@ -365,3 +365,196 @@ Oh My Zsh is released under the [MIT license](LICENSE.txt).
 ![Planet Argon](https://pa-github-assets.s3.amazonaws.com/PARGON_logo_digital_COL-small.jpg)
 
 Oh My Zsh was started by the team at [Planet Argon](https://www.planetargon.com/?utm_source=github), a [Ruby on Rails development agency](https://www.planetargon.com/skills/ruby-on-rails-development?utm_source=github). Check out our [other open source projects](https://www.planetargon.com/open-source?utm_source=github).
+
+
+Ubuntu美化——安装Oh-My-Zsh
+一、安装zsh
+安装zsh
+复制代码
+1
+BASH
+sudo apt-get install zsh
+把默认的Shell改成zsh
+注意：不要使用sudo。
+复制代码
+1
+LANGUAGE-BASH
+chsh -s /bin/zsh
+配置密码文件，解决chsh: PAM认证失败的问题
+编辑passwd文件
+复制代码
+1
+LANGUAGE-BASH
+sudo vim /etc/passwd
+把第一行的/bin/bash改成/bin/zsh，这个是root用户的。
+复制代码
+1
+BASH
+root:x:0:0:root:/root:/bin/zsh
+把用户的bash也改为zsh，以下是我的。
+复制代码
+1
+BASH
+langkye:x:1000:1000:langkye,,,:/home/langkye:/usr/bin/zsh
+4、安装Git，如果已经安装，自行跳过
+
+复制代码
+1
+LANGUAGE-CSHARP
+sudo apt-get install git
+二、安装 Oh my zsh
+zsh的强大令人敬畏，但是由于它配置复杂，很多人对它望而却步，而oh my zsh的诞生正好从某种角度上解决了此问题。
+zsh在github上的repo地址为 robbyrussell/oh-my-zsh
+
+其提供了一键安装工具，按照其说明，仅需运行如下命令。
+2.1使用wget安装
+推荐使用wget
+
+复制代码
+1
+BASH
+sh -c "$(wget https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh -O -)"
+码云地址加速
+复制代码
+1
+2
+BASH
+# gitee 源
+sh -c "$(wget https://gitee.com/mirrors/oh-my-zsh/raw/master/tools/install.sh -O -)"
+2.2使用curl来安装
+复制代码
+1
+BASH
+sh -c "$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
+码云地址加速
+复制代码
+1
+2
+BASH
+# gitee 源
+sh -c "$(curl -fsSL wget https://gitee.com/mirrors/oh-my-zsh/raw/master/tools/install.sh)"
+接下来静静等待安装完毕～
+
+三、美化Oh my zsh
+3.1配置主题
+Oh my zsh自带了非常实用的主题特性，其自身也提供了诸多主题以供切换。
+需要注意的是，有些个别的主题需要安装特殊的字体。
+
+官方对主题的介绍以及已提交的主题列表在这里 robbyrussell/oh-my-zsh。
+
+这里以agnoster这个主题为例
+
+因为zsh已自带此主题，主题文件已存在于~/.oh_my_zsh/themes文件夹下，故可直接使用。如果你需要安装其他并非自带的主题的话，请将主题文件拷贝至此文件夹。
+
+首先切换到当前账户主目录，编辑.zshrc文件。
+找到ZSH_THEME这一项，将它的值改成agnoster即可完成对此主题的切换，其他主题如法炮制。
+复制代码
+1
+BASH
+vim .zshrc
+默认值：ZSH_THEME="robbyrussell"
+
+编辑完毕后，重载该配置文件，无需重启。
+复制代码
+1
+BASH
+source .zshrc
+3.2安装autojump
+autojump为Oh my zsh的一款自动跳转插件。官网：https://github.com/wting/autojump
+
+安装
+复制代码
+1
+LANGUAGE-CSHARP
+sudo apt-get install autojump
+配置
+
+复制代码
+1
+BASH
+vim .zshrc
+在最后一行加入，注意点后面是一个空格
+复制代码
+1
+BASH
+. /usr/share/autojump/autojump.sh
+如需详细配置，参考【配置教程】：cat /usr/share/doc/autojump/README.Debian。
+
+重载配置文件
+
+复制代码
+1
+LANGUAGE-BASH
+source ~/.zshrc
+3.3安装语法高亮插件
+官网：https://github.com/zsh-users/zsh-syntax-highlighting
+
+安装zsh-syntax-highlighting插件
+复制代码
+1
+2
+LANGUAGE-BASH
+git clone https://github.com/zsh-users/zsh-syntax-highlighting.git
+echo "source ${(q-)PWD}/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh" >> ${ZDOTDIR:-$HOME}/.zshrc
+重载配置文件
+复制代码
+1
+LANGUAGE-BASH
+source ~/.zshrc
+3.4安装语法历史记录插件
+官网：https://github.com/zsh-users/zsh-autosuggestions
+
+安装zsh-autosuggestions
+复制代码
+1
+LANGUAGE-BASH
+git clone git://github.com/zsh-users/zsh-autosuggestions $ZSH_CUSTOM/plugins/zsh-autosuggestions
+编辑.zshrc，添加插件
+复制代码
+1
+LANGUAGE-BASH
+vim ~/.zshrc
+将zsh-autosuggestions添加到plugins()，示例：
+复制代码
+1
+2
+3
+4
+5
+6
+7
+BASH
+# 原来：
+# plugins(git)
+# 追加：
+pulguns(
+      git
+      zsh-autosuggestions
+)
+在末尾添加一行：
+复制代码
+1
+BASH
+source $ZSH_CUSTOM/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh
+重载配置文件
+复制代码
+1
+BASH
+source ~/.zshrc
+3.4配置主题
+在3.1已经配置过，如果不需要换，可忽略。
+
+官方主题参考：https://github.com/robbyrussell/oh-my-zsh/wiki/External-themes
+
+编辑配置文件
+复制代码
+1
+LANGUAGE-BASH
+sudo vim ~/.zshrc
+找到ZSH_THEME="robbyrussell"，修改为：ZSH_THEME="ys"；
+
+重载配置文件
+复制代码
+1
+LANGUAGE-BASH
+source ~/.zshrc
